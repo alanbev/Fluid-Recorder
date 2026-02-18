@@ -1,11 +1,12 @@
 # Fluid Recorder
 
-A modern audio recording application built with React and Vite.
+Prototype web-based interface for recording patient fluid input and output on a ward. Built with React and Vite.
 
 ## Features
 
 - Fast development with Vite
 - React 18 with modern hooks
+- Material UI components
 - Hot Module Replacement (HMR)
 - ESLint for code quality
 
@@ -63,6 +64,8 @@ fluid-recorder/
 ├── public/          # Static assets
 ├── src/             # Source code
 │   ├── assets/      # Images and other assets
+│   ├── components/  # React components
+│   ├── icons/       # Custom SVG icons
 │   ├── App.jsx      # Main App component
 │   ├── App.css      # App styles
 │   ├── main.jsx     # Application entry point
@@ -76,8 +79,10 @@ fluid-recorder/
 
 - **React** - UI library
 - **Vite** - Build tool and dev server
+- **Material UI** - Component library
 - **ESLint** - Code linting
 
 ## License
 
 MIT
+
