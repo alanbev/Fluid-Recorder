@@ -1,0 +1,5 @@
+{
+    "get_patient_data": "http://localhost:5000/get_patient_data",
+    "submit_fluid_input": "http://localhost:5000/submit_fluid_input",
+    "submit_fluid_output": "http://localhost:5000/submit_fluid_output"
+}

@@ -1,26 +1,31 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, TextField, Button, Typography } from '@mui/material';
 
-function OutputVolume({ setOutputVolume, submitOutputData }) {
+function InputVolume({ presetVolume, setInputVolume, submitInputData }) {
   const [volume, setVolume] = useState(0);
+
+  useEffect(() => {
+    setVolume(presetVolume);
+    setInputVolume(presetVolume);
+  }, [presetVolume, setInputVolume]);
 
   const handleVolumeChange = (event) => {
     const newVolume = Number(event.target.value);
     setVolume(newVolume);
-    setOutputVolume(newVolume);
+    setInputVolume(newVolume);
   };
 
   const handleClear = () => {
     setVolume(0);
-    setOutputVolume(0);
+    setInputVolume(0);
   };
 
   const handleSubmit = async () => {
     try {
-      await submitOutputData();
-      console.log('Fluid output data sent successfully');
+      await submitInputData();
+      console.log('Fluid input data sent successfully');
     } catch (error) {
-      console.error('Failed to send fluid output data:', error);
+      console.error('Failed to send fluid input data:', error);
     }
   };
 
@@ -54,10 +59,10 @@ function OutputVolume({ setOutputVolume, submitOutputData }) {
           }
         }}
       >
-        Send Fluid Output to EPR
+        Send Fluid Input to EPR
       </Button>
     </Box>
   );
 }
 
-export default OutputVolume;
+export default InputVolume;
