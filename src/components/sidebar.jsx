@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { Box, FormControl, InputLabel, Select, MenuItem, Button } from '@mui/material';
 import patientsData from '../pseudodata/patients.json';
 
-function Sidebar({ setHospitalNumber }) {
+function Sidebar({setHospitalNumber, setLoggedIn }) {
   const [logged_in, setLogged_in] = useState(false);
   const [ward, setWard] = useState('');
   const [patient, setPatient] = useState('');
@@ -62,6 +62,16 @@ function Sidebar({ setHospitalNumber }) {
           ))}
         </Select>
       </FormControl>
+
+      <Button 
+        fullWidth 
+        variant="outlined" 
+        color="error"
+        onClick={() => setLoggedIn(false)}
+        sx={{ mt: 2 }}
+      >
+        Log out
+      </Button>
     </Box>
   );
 }
