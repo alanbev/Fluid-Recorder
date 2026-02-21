@@ -25,7 +25,7 @@ function OutputVolume({ setOutputVolume, submitOutputData }) {
   };
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, p: 2 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2, p: { xs: 1, md: 2 } }}>
       <Typography variant="subtitle2">Volume (ml)</Typography>
       <TextField
         type="number"
@@ -33,12 +33,12 @@ function OutputVolume({ setOutputVolume, submitOutputData }) {
         onChange={handleVolumeChange}
         variant="outlined"
         inputProps={{ min: 0 }}
-        sx={{ width: '150px' }}
+        sx={{ width: { xs: '100%', sm: '150px' }, maxWidth: '200px' }}
       />
       <Button 
         variant="outlined" 
         onClick={handleClear}
-        sx={{ width: '150px' }}
+        sx={{ width: { xs: '100%', sm: '150px' }, maxWidth: '200px' }}
       >
         Clear
       </Button>
@@ -46,7 +46,8 @@ function OutputVolume({ setOutputVolume, submitOutputData }) {
         variant="contained" 
         onClick={handleSubmit}
         sx={{ 
-          width: '150px',
+          width: { xs: '100%', sm: '150px' },
+          maxWidth: '200px',
           backgroundColor: '#ffcccb',
           color: '#000',
           '&:hover': {

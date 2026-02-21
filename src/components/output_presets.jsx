@@ -21,9 +21,9 @@ function OutputPresets({ outputType, setOutputType }) {
   };
 
   return (
-    <Box>
+    <Box sx={{ p: { xs: 1, md: 0 } }}>
       {['stoma', 'Ileostomy', 'Colostomy'].includes(outputType) && (
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1, mb: 2 }}>
           <Typography variant="subtitle2">Stoma Type</Typography>
           <ToggleButtonGroup
             value={stomaType}
@@ -32,6 +32,11 @@ function OutputPresets({ outputType, setOutputType }) {
             aria-label="stoma type"
             orientation="vertical"
             sx={{
+              width: { xs: '100%', sm: 'auto' },
+              maxWidth: '200px',
+              '& .MuiToggleButton-root': {
+                fontSize: { xs: '0.875rem', md: '1rem' }
+              },
               '& .MuiToggleButton-root.Mui-selected': {
                 backgroundColor: 'green',
                 color: 'white',
@@ -51,7 +56,7 @@ function OutputPresets({ outputType, setOutputType }) {
         </Box>
       )}
       {['drain', 'Drain1', 'Drain2', 'Drain3', 'Drain4'].includes(outputType) && (
-        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1, mb: 2 }}>
           <Typography variant="subtitle2">Choose Drain</Typography>
           <ToggleButtonGroup
             value={drainType}
@@ -61,7 +66,12 @@ function OutputPresets({ outputType, setOutputType }) {
             sx={{
               display: 'grid',
               gridTemplateColumns: 'repeat(2, 1fr)',
-              gap: 1,
+              gap: { xs: 0.5, md: 1 },
+              width: '100%',
+              maxWidth: '200px',
+              '& .MuiToggleButton-root': {
+                fontSize: { xs: '0.875rem', md: '1rem' }
+              },
               '& .MuiToggleButton-root.Mui-selected': {
                 backgroundColor: 'green',
                 color: 'white',

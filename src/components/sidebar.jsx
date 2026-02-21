@@ -27,16 +27,15 @@ function Sidebar({ setHospitalNumber }) {
   return (
     <Box sx={{ 
       height: '100%', 
-      p: 2,
-      borderRight: 1, 
+      p: { xs: 1.5, md: 2 },
+      borderRight: { xs: 0, md: 1 },
+      borderBottom: { xs: 1, md: 0 },
       borderColor: 'divider',
       bgcolor: 'background.paper'
     }}>
       <FormControl fullWidth sx={{ mb: 2 }}>
-        <InputLabel id="ward-select-label">Select Ward</InputLabel>
+        <InputLabel>Select Ward</InputLabel>
         <Select
-          labelId="ward-select-label"
-          id="ward-select"
           value={ward}
           label="Select Ward"
           onChange={handleWardChange}
@@ -50,10 +49,8 @@ function Sidebar({ setHospitalNumber }) {
       </FormControl>
 
       <FormControl fullWidth sx={{ mb: 2 }} disabled={!ward}>
-        <InputLabel id="patient-select-label">Select Patient</InputLabel>
+        <InputLabel>Select Patient</InputLabel>
         <Select
-          labelId="patient-select-label"
-          id="patient-select"
           value={patient}
           label="Select Patient"
           onChange={handlePatientChange}

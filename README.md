@@ -84,5 +84,5 @@ fluid-recorder/
 
 ## License
 
-MIT
-
+GPU3
+npm

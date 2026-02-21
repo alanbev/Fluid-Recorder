@@ -18,7 +18,7 @@ function InputSource({ setInputType }) {
   };
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1, p: 2 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1, p: { xs: 1, md: 2 } }}>
       <Typography variant="subtitle2" sx={{ alignSelf: 'flex-start' }}>Choose Input Type</Typography>
       <ToggleButtonGroup
         value={inputType}
@@ -28,7 +28,12 @@ function InputSource({ setInputType }) {
         sx={{
           display: 'grid',
           gridTemplateColumns: 'repeat(2, 1fr)',
-          gap: 1,
+          gap: { xs: 0.5, md: 1 },
+          width: '100%',
+          maxWidth: '300px',
+          '& .MuiToggleButton-root': {
+            padding: { xs: '4px', md: '8px' }
+          },
           '& .MuiToggleButton-root.Mui-selected': {
             backgroundColor: 'green',
             color: 'white',
@@ -39,16 +44,16 @@ function InputSource({ setInputType }) {
         }}
       >
         <ToggleButton value="drink" aria-label="drink">
-          <img src={drinkingIcon} alt="drink" style={{ width: 80, height: 80 }} />
+          <img src={drinkingIcon} alt="drink" style={{ width: '100%', maxWidth: '80px', height: 'auto' }} />
         </ToggleButton>
         <ToggleButton value="ng" aria-label="ng feed">
-          <img src={ngfeedIcon} alt="ng feed" style={{ width: 80, height: 80 }} />
+          <img src={ngfeedIcon} alt="ng feed" style={{ width: '100%', maxWidth: '80px', height: 'auto' }} />
         </ToggleButton>
         <ToggleButton value="iv" aria-label="iv">
-          <img src={ivIcon} alt="iv" style={{ width: 80, height: 80 }} />
+          <img src={ivIcon} alt="iv" style={{ width: '100%', maxWidth: '80px', height: 'auto' }} />
         </ToggleButton>
         <ToggleButton value="tpn" aria-label="tpn">
-          <img src={tpnIcon} alt="tpn" style={{ width: 80, height: 80 }} />
+          <img src={tpnIcon} alt="tpn" style={{ width: '100%', maxWidth: '80px', height: 'auto' }} />
         </ToggleButton>
       </ToggleButtonGroup>
     </Box>

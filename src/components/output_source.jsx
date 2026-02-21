@@ -20,7 +20,7 @@ function OutputSource({ setOutputType }) {
   };
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1, p: 2 }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1, p: { xs: 1, md: 2 } }}>
       <Typography variant="subtitle2" sx={{ alignSelf: 'flex-start' }}>Choose Output Type</Typography>
       <ToggleButtonGroup
         value={outputType}
@@ -29,8 +29,13 @@ function OutputSource({ setOutputType }) {
         aria-label="output type"
         sx={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: 1,
+          gridTemplateColumns: { xs: 'repeat(2, 1fr)', sm: 'repeat(3, 1fr)' },
+          gap: { xs: 0.5, md: 1 },
+          width: '100%',
+          maxWidth: '450px',
+          '& .MuiToggleButton-root': {
+            padding: { xs: '4px', md: '8px' }
+          },
           '& .MuiToggleButton-root.Mui-selected': {
             backgroundColor: 'green',
             color: 'white',
@@ -41,22 +46,22 @@ function OutputSource({ setOutputType }) {
         }}
       >
         <ToggleButton value="urine" aria-label="urine">
-          <img src={urinatingIcon} alt="urine" style={{ width: 80, height: 80 }} />
+          <img src={urinatingIcon} alt="urine" style={{ width: '100%', maxWidth: '80px', height: 'auto' }} />
         </ToggleButton>
         <ToggleButton value="catheter" aria-label="catheter">
-          <img src={catheterIcon} alt="catheter" style={{ width: 80, height: 80 }} />
+          <img src={catheterIcon} alt="catheter" style={{ width: '100%', maxWidth: '80px', height: 'auto' }} />
         </ToggleButton>
         <ToggleButton value="vomit" aria-label="vomit">
-          <img src={vomitIcon} alt="vomit" style={{ width: 80, height: 80 }} />
+          <img src={vomitIcon} alt="vomit" style={{ width: '100%', maxWidth: '80px', height: 'auto' }} />
         </ToggleButton>
         <ToggleButton value="ng" aria-label="ng drain">
-          <img src={ngdrainIcon} alt="ng drain" style={{ width: 80, height: 80 }} />
+          <img src={ngdrainIcon} alt="ng drain" style={{ width: '100%', maxWidth: '80px', height: 'auto' }} />
         </ToggleButton>
         <ToggleButton value="drain" aria-label="drain">
-          <img src={drainIcon} alt="drain" style={{ width: 80, height: 80 }} />
+          <img src={drainIcon} alt="drain" style={{ width: '100%', maxWidth: '80px', height: 'auto' }} />
         </ToggleButton>
         <ToggleButton value="stoma" aria-label="stoma">
-          <img src={stomaIcon} alt="stoma" style={{ width: 80, height: 80 }} />
+          <img src={stomaIcon} alt="stoma" style={{ width: '100%', maxWidth: '80px', height: 'auto' }} />
         </ToggleButton>
       </ToggleButtonGroup>
     </Box>

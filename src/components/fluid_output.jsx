@@ -31,17 +31,17 @@ function FluidOutput({ hospitalNumber }) {
   };
 
   return (
-    <Paper sx={{ height: '100%', m: 2 }}>
-      <Box sx={{ p: 2 }}>
+    <Paper sx={{ height: '100%', m: { xs: 1, md: 2 } }}>
+      <Box sx={{ p: { xs: 1, md: 2 } }}>
         <Typography variant="h6" gutterBottom>Fluid Output</Typography>
-        <Grid container spacing={2}>
-          <Grid item xs={4}>
+        <Grid container spacing={{ xs: 1, md: 2 }}>
+          <Grid item xs={12} sm={6} md={4}>
             <OutputSource setOutputType={setOutputType} />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} sm={6} md={4}>
             <OutputPresets outputType={outputType} setOutputType={setOutputType} />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} sm={12} md={4}>
             <OutputVolume setOutputVolume={setOutputVolume} submitOutputData={submitOutputData} />
           </Grid>
         </Grid>

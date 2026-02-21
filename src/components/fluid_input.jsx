@@ -32,17 +32,17 @@ function FluidInput({ hospitalNumber }) {
   };
 
   return (
-    <Paper sx={{ height: '100%', m: 2 }}>
-      <Box sx={{ p: 2 }}>
+    <Paper sx={{ height: '100%', m: { xs: 1, md: 2 } }}>
+      <Box sx={{ p: { xs: 1, md: 2 } }}>
         <Typography variant="h6" gutterBottom>Fluid Input</Typography>
-        <Grid container spacing={2}>
-          <Grid item xs={4}>
+        <Grid container spacing={{ xs: 1, md: 2 }}>
+          <Grid item xs={12} sm={6} md={4}>
             <InputSource setInputType={setInputType} />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} sm={6} md={4}>
             <InputPresets setPresetVolume={setPresetVolume} />
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={12} sm={2} md={2}>
             <InputVolume presetVolume={presetVolume} setInputVolume={setInputVolume} submitInputData={submitInputData} />
           </Grid>
         </Grid>
