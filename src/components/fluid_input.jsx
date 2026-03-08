@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Paper, Typography, Grid, Alert } from '@mui/material';
 import InputSource from './input_source';
 import InputPresets from './input_presets';
@@ -7,10 +7,18 @@ import { dispatchFluidData } from '../IO/dispatch';
 
 function FluidInput({ hospitalNumber }) {
   const [state, setState] = useState({});
-  const [inputType, setInputType] = useState('');
-  const [presetVolume, setPresetVolume] = useState(0);
+  const [inputType, setInputType] = useState(null);
+  const [presetVolume, setPresetVolume] = useState(null);
   const [inputVolume, setInputVolume] = useState(0);
   const [alertMessage, setAlertMessage] = useState('');
+
+  // Reset form when patient changes
+  useEffect(() => {
+    setInputType(null);
+    setPresetVolume(null);
+    setInputVolume(0);
+    setAlertMessage('');
+  }, [hospitalNumber]);
   
   const getInputObject = () => {
     const inputObject = {
@@ -40,9 +48,19 @@ function FluidInput({ hospitalNumber }) {
     const inputObject = getInputObject();
     try {
       const response = await dispatchFluidData('input', inputObject);
+      // Reset form after successful submission
+      setInputType(null);
+      setPresetVolume(null);
+      setInputVolume(0);
       return response;
     } catch (error) {
       console.error('Error submitting input data:', error);
+      // Reset form even on error (for development without backend)
+      setInputType(null);
+      setPresetVolume(null);
+      setInputVolume(0);
+      // Uncomment this line if you want to show errors to users:
+      // setAlertMessage('Submitted locally (backend not available)');
       throw error;
     }
   };
@@ -58,13 +76,13 @@ function FluidInput({ hospitalNumber }) {
         )}
         <Grid container spacing={{ xs: 1, md: 2 }}>
           <Grid item xs={12} sm={6} md={4}>
-            <InputSource setInputType={setInputType} />
+            <InputSource setInputType={setInputType} inputType={inputType} />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <InputPresets setPresetVolume={setPresetVolume} />
+            <InputPresets setPresetVolume={setPresetVolume} presetVolume={presetVolume} />
           </Grid>
           <Grid item xs={12} sm={2} md={2}>
-            <InputVolume presetVolume={presetVolume} setInputVolume={setInputVolume} submitInputData={submitInputData} />
+            <InputVolume presetVolume={presetVolume} setInputVolume={setInputVolume} submitInputData={submitInputData} inputVolume={inputVolume} />
           </Grid>
         </Grid>
       </Box>

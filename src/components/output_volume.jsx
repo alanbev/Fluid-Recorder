@@ -1,8 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, TextField, Button, Typography } from '@mui/material';
 
-function OutputVolume({ setOutputVolume, submitOutputData }) {
+function OutputVolume({ setOutputVolume, submitOutputData, outputVolume }) {
   const [volume, setVolume] = useState(0);
+
+  // Sync local volume with parent state
+  useEffect(() => {
+    setVolume(outputVolume);
+  }, [outputVolume]);
 
   const handleVolumeChange = (event) => {
     const newVolume = Number(event.target.value);

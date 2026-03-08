@@ -1,23 +1,28 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Box, Button, ButtonGroup, ToggleButtonGroup, ToggleButton, Typography } from '@mui/material';
 
 function OutputPresets({ outputType, setOutputType }) {
-  const [state, setState] = useState({});
-  const [stomaType, setStomaType] = useState('Ileostomy');
+  const [stomaType, setStomaType] = useState('');
   const [drainType, setDrainType] = useState('');
 
-  const handleStomaTypeChange = (event, newStomaType) => {
-    if (newStomaType !== null) {
-      setStomaType(newStomaType);
-      setOutputType(newStomaType);
+  // Reset local state when parent resets
+  useEffect(() => {
+    if (outputType === null || outputType === '') {
+      setStomaType('');
+      setDrainType('');
     }
+  }, [outputType]);
+
+  const handleStomaTypeChange = (event, newStomaType) => {
+    // Allow deselection or new selection
+    setStomaType(newStomaType || '');
+    setOutputType(newStomaType);
   };
 
   const handleDrainTypeChange = (event, newDrainType) => {
-    if (newDrainType !== null) {
-      setDrainType(newDrainType);
-      setOutputType(newDrainType);
-    }
+    // Allow deselection or new selection
+    setDrainType(newDrainType || '');
+    setOutputType(newDrainType);
   };
 
   return (

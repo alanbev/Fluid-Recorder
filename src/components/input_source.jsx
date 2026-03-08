@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Box, ToggleButtonGroup, ToggleButton, Typography } from '@mui/material';
 
 // Import SVG icons
@@ -7,14 +6,10 @@ import ngfeedIcon from '../icons.svg/ngfeed.svg';
 import ivIcon from '../icons.svg/iv.svg';
 import tpnIcon from '../icons.svg/tpn.svg';
 
-function InputSource({ setInputType }) {
-  const [inputType, setInputTypeLocal] = useState('');
-
+function InputSource({ setInputType, inputType }) {
   const handleInputTypeChange = (event, newInputType) => {
-    if (newInputType !== null) {
-      setInputType(newInputType);
-      setInputTypeLocal(newInputType);
-    }
+    // Allow deselection or new selection
+    setInputType(newInputType);
   };
 
   return (

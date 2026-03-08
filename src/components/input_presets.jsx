@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Box, Button, ButtonGroup, ToggleButtonGroup, ToggleButton, Typography } from '@mui/material';
 import volumes from '../settings/volumes.json';
 
@@ -7,15 +6,10 @@ import cupIcon from '../icons.svg/cup.svg';
 import glassIcon from '../icons.svg/glass.svg';
 import jugIcon from '../icons.svg/jug.svg';
 
-function InputPresets({ setPresetVolume }) {
-  const [state, setState] = useState({});
-  const [presetVolume, setPresetVolumeLocal] = useState('');
-
+function InputPresets({ setPresetVolume, presetVolume }) {
   const handlePresetVolumeChange = (event, newPresetVolume) => {
-    if (newPresetVolume !== null) {
-      setPresetVolumeLocal(newPresetVolume);
-      setPresetVolume(newPresetVolume);
-    }
+    // Allow deselection or new selection
+    setPresetVolume(newPresetVolume);
   };
 
   return (

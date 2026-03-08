@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Box, ToggleButtonGroup, ToggleButton, Typography } from '@mui/material';
 
 // Import SVG icons
@@ -9,14 +8,10 @@ import ngdrainIcon from '../icons.svg/ngdrain.svg';
 import drainIcon from '../icons.svg/drain.svg';
 import stomaIcon from '../icons.svg/colostomy.svg';
 
-function OutputSource({ setOutputType }) {
-  const [outputType, setOutputTypeLocal] = useState('');
-
+function OutputSource({ setOutputType, outputType }) {
   const handleOutputTypeChange = (event, newOutputType) => {
-    if (newOutputType !== null) {
-      setOutputType(newOutputType);
-      setOutputTypeLocal(newOutputType);
-    }
+    // Allow deselection or new selection
+    setOutputType(newOutputType);
   };
 
   return (

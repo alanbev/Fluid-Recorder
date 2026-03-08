@@ -1,13 +1,21 @@
 import { useState, useEffect } from 'react';
 import { Box, TextField, Button, Typography } from '@mui/material';
 
-function InputVolume({ presetVolume, setInputVolume, submitInputData }) {
+function InputVolume({ presetVolume, setInputVolume, submitInputData, inputVolume }) {
   const [volume, setVolume] = useState(0);
 
+  // Sync with presetVolume when it changes
   useEffect(() => {
-    setVolume(presetVolume);
-    setInputVolume(presetVolume);
+    if (presetVolume !== null && presetVolume !== undefined) {
+      setVolume(presetVolume);
+      setInputVolume(presetVolume);
+    }
   }, [presetVolume, setInputVolume]);
+
+  // Sync with inputVolume when parent resets it
+  useEffect(() => {
+    setVolume(inputVolume);
+  }, [inputVolume]);
 
   const handleVolumeChange = (event) => {
     const newVolume = Number(event.target.value);
