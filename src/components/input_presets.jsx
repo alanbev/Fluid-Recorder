@@ -6,8 +6,10 @@ import cupIcon from '../icons.svg/cup.svg';
 import glassIcon from '../icons.svg/glass.svg';
 import jugIcon from '../icons.svg/jug.svg';
 
-function InputPresets({ setPresetVolume, presetVolume }) {
+function InputPresets({ setPresetVolume, presetVolume, clearAlert }) {
   const handlePresetVolumeChange = (event, newPresetVolume) => {
+    // Clear any alert messages
+    if (clearAlert) clearAlert();
     // Allow deselection or new selection
     setPresetVolume(newPresetVolume);
   };

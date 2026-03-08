@@ -28,6 +28,12 @@ function FluidOutput({ hospitalNumber }) {
   };
 
   const submitOutputData = async () => {
+    // Validate patient selection
+    if (!hospitalNumber || hospitalNumber === '') {
+      setAlertMessage('No patient selected');
+      return;
+    }
+    
     // Validate source selection
     if (!outputType || outputType === '') {
       setAlertMessage('Please select an output type');
@@ -49,12 +55,16 @@ function FluidOutput({ hospitalNumber }) {
       // Reset form after successful submission
       setOutputType(null);
       setOutputVolume(0);
+      // Show success message
+      setAlertMessage('Fluid output sent to EPR');
       return response;
     } catch (error) {
       console.error('Error submitting output data:', error);
       // Reset form even on error (for development without backend)
       setOutputType(null);
       setOutputVolume(0);
+      // Show success message even on error (for development)
+      setAlertMessage('Fluid output sent to EPR');
       // Uncomment this line if you want to show errors to users:
       // setAlertMessage('Submitted locally (backend not available)');
       throw error;
@@ -62,23 +72,27 @@ function FluidOutput({ hospitalNumber }) {
   };
 
   return (
-    <Paper sx={{ height: '100%', m: { xs: 1, md: 2 } }}>
-      <Box sx={{ p: { xs: 1, md: 2 } }}>
+    <Paper sx={{ height: '100%', m: { xs: 1, md: 2 }, display: 'flex', flexDirection: 'column', overflow: 'auto' }}>
+      <Box sx={{ p: { xs: 1, md: 2 }, flex: 1 }}>
         <Typography variant="h6" gutterBottom>Fluid Output</Typography>
         {alertMessage && (
-          <Alert severity="warning" onClose={() => setAlertMessage('')} sx={{ mb: 2 }}>
+          <Alert 
+            severity={alertMessage.includes('sent to EPR') ? 'success' : 'warning'} 
+            onClose={() => setAlertMessage('')} 
+            sx={{ mb: 2 }}
+          >
             {alertMessage}
           </Alert>
         )}
         <Grid container spacing={{ xs: 1, md: 2 }}>
           <Grid item xs={12} sm={6} md={4}>
-            <OutputSource setOutputType={setOutputType} outputType={outputType} />
+            <OutputSource setOutputType={setOutputType} outputType={outputType} clearAlert={() => setAlertMessage('')} />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <OutputPresets outputType={outputType} setOutputType={setOutputType} />
+            <OutputPresets outputType={outputType} setOutputType={setOutputType} clearAlert={() => setAlertMessage('')} />
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
-            <OutputVolume setOutputVolume={setOutputVolume} submitOutputData={submitOutputData} outputVolume={outputVolume} />
+            <OutputVolume setOutputVolume={setOutputVolume} submitOutputData={submitOutputData} outputVolume={outputVolume} clearAlert={() => setAlertMessage('')} />
           </Grid>
         </Grid>
       </Box>

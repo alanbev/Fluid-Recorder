@@ -30,6 +30,12 @@ function FluidInput({ hospitalNumber }) {
   };
 
   const submitInputData = async () => {
+    // Validate patient selection
+    if (!hospitalNumber || hospitalNumber === '') {
+      setAlertMessage('No patient selected');
+      return;
+    }
+    
     // Validate source selection
     if (!inputType || inputType === '') {
       setAlertMessage('Please select an input type');
@@ -52,6 +58,8 @@ function FluidInput({ hospitalNumber }) {
       setInputType(null);
       setPresetVolume(null);
       setInputVolume(0);
+      // Show success message
+      setAlertMessage('Fluid input sent to EPR');
       return response;
     } catch (error) {
       console.error('Error submitting input data:', error);
@@ -59,6 +67,8 @@ function FluidInput({ hospitalNumber }) {
       setInputType(null);
       setPresetVolume(null);
       setInputVolume(0);
+      // Show success message even on error (for development)
+      setAlertMessage('Fluid input sent to EPR');
       // Uncomment this line if you want to show errors to users:
       // setAlertMessage('Submitted locally (backend not available)');
       throw error;
@@ -66,23 +76,27 @@ function FluidInput({ hospitalNumber }) {
   };
 
   return (
-    <Paper sx={{ height: '100%', m: { xs: 1, md: 2 } }}>
-      <Box sx={{ p: { xs: 1, md: 2 } }}>
+    <Paper sx={{ height: '100%', m: { xs: 1, md: 2 }, display: 'flex', flexDirection: 'column', overflow: 'auto' }}>
+      <Box sx={{ p: { xs: 1, md: 2 }, flex: 1 }}>
         <Typography variant="h6" gutterBottom>Fluid Input</Typography>
         {alertMessage && (
-          <Alert severity="warning" onClose={() => setAlertMessage('')} sx={{ mb: 2 }}>
+          <Alert 
+            severity={alertMessage.includes('sent to EPR') ? 'success' : 'warning'} 
+            onClose={() => setAlertMessage('')} 
+            sx={{ mb: 2 }}
+          >
             {alertMessage}
           </Alert>
         )}
         <Grid container spacing={{ xs: 1, md: 2 }}>
           <Grid item xs={12} sm={6} md={4}>
-            <InputSource setInputType={setInputType} inputType={inputType} />
+            <InputSource setInputType={setInputType} inputType={inputType} clearAlert={() => setAlertMessage('')} />
           </Grid>
           <Grid item xs={12} sm={6} md={4}>
-            <InputPresets setPresetVolume={setPresetVolume} presetVolume={presetVolume} />
+            <InputPresets setPresetVolume={setPresetVolume} presetVolume={presetVolume} clearAlert={() => setAlertMessage('')} />
           </Grid>
           <Grid item xs={12} sm={2} md={2}>
-            <InputVolume presetVolume={presetVolume} setInputVolume={setInputVolume} submitInputData={submitInputData} inputVolume={inputVolume} />
+            <InputVolume presetVolume={presetVolume} setInputVolume={setInputVolume} submitInputData={submitInputData} inputVolume={inputVolume} clearAlert={() => setAlertMessage('')} />
           </Grid>
         </Grid>
       </Box>

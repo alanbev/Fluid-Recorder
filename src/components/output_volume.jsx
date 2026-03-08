@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Box, TextField, Button, Typography } from '@mui/material';
 
-function OutputVolume({ setOutputVolume, submitOutputData, outputVolume }) {
+function OutputVolume({ setOutputVolume, submitOutputData, outputVolume, clearAlert }) {
   const [volume, setVolume] = useState(0);
 
   // Sync local volume with parent state
@@ -10,6 +10,8 @@ function OutputVolume({ setOutputVolume, submitOutputData, outputVolume }) {
   }, [outputVolume]);
 
   const handleVolumeChange = (event) => {
+    // Clear any alert messages
+    if (clearAlert) clearAlert();
     const newVolume = Number(event.target.value);
     setVolume(newVolume);
     setOutputVolume(newVolume);

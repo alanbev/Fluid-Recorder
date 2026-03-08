@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Box, TextField, Button, Typography } from '@mui/material';
 
-function InputVolume({ presetVolume, setInputVolume, submitInputData, inputVolume }) {
+function InputVolume({ presetVolume, setInputVolume, submitInputData, inputVolume, clearAlert }) {
   const [volume, setVolume] = useState(0);
 
   // Sync with presetVolume when it changes
@@ -18,6 +18,8 @@ function InputVolume({ presetVolume, setInputVolume, submitInputData, inputVolum
   }, [inputVolume]);
 
   const handleVolumeChange = (event) => {
+    // Clear any alert messages
+    if (clearAlert) clearAlert();
     const newVolume = Number(event.target.value);
     setVolume(newVolume);
     setInputVolume(newVolume);

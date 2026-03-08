@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Box, Button, ButtonGroup, ToggleButtonGroup, ToggleButton, Typography } from '@mui/material';
 
-function OutputPresets({ outputType, setOutputType }) {
+function OutputPresets({ outputType, setOutputType, clearAlert }) {
   const [stomaType, setStomaType] = useState('');
   const [drainType, setDrainType] = useState('');
 
@@ -14,12 +14,16 @@ function OutputPresets({ outputType, setOutputType }) {
   }, [outputType]);
 
   const handleStomaTypeChange = (event, newStomaType) => {
+    // Clear any alert messages
+    if (clearAlert) clearAlert();
     // Allow deselection or new selection
     setStomaType(newStomaType || '');
     setOutputType(newStomaType);
   };
 
   const handleDrainTypeChange = (event, newDrainType) => {
+    // Clear any alert messages
+    if (clearAlert) clearAlert();
     // Allow deselection or new selection
     setDrainType(newDrainType || '');
     setOutputType(newDrainType);

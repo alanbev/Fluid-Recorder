@@ -8,8 +8,10 @@ import ngdrainIcon from '../icons.svg/ngdrain.svg';
 import drainIcon from '../icons.svg/drain.svg';
 import stomaIcon from '../icons.svg/colostomy.svg';
 
-function OutputSource({ setOutputType, outputType }) {
+function OutputSource({ setOutputType, outputType, clearAlert }) {
   const handleOutputTypeChange = (event, newOutputType) => {
+    // Clear any alert messages
+    if (clearAlert) clearAlert();
     // Allow deselection or new selection
     setOutputType(newOutputType);
   };

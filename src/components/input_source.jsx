@@ -6,8 +6,10 @@ import ngfeedIcon from '../icons.svg/ngfeed.svg';
 import ivIcon from '../icons.svg/iv.svg';
 import tpnIcon from '../icons.svg/tpn.svg';
 
-function InputSource({ setInputType, inputType }) {
+function InputSource({ setInputType, inputType, clearAlert }) {
   const handleInputTypeChange = (event, newInputType) => {
+    // Clear any alert messages
+    if (clearAlert) clearAlert();
     // Allow deselection or new selection
     setInputType(newInputType);
   };
