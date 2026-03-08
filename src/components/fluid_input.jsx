@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Paper, Typography, Grid } from '@mui/material';
+import { Box, Paper, Typography, Grid, Alert } from '@mui/material';
 import InputSource from './input_source';
 import InputPresets from './input_presets';
 import InputVolume from './input_volume';
@@ -10,6 +10,7 @@ function FluidInput({ hospitalNumber }) {
   const [inputType, setInputType] = useState('');
   const [presetVolume, setPresetVolume] = useState(0);
   const [inputVolume, setInputVolume] = useState(0);
+  const [alertMessage, setAlertMessage] = useState('');
   
   const getInputObject = () => {
     const inputObject = {
@@ -21,6 +22,21 @@ function FluidInput({ hospitalNumber }) {
   };
 
   const submitInputData = async () => {
+    // Validate source selection
+    if (!inputType || inputType === '') {
+      setAlertMessage('Please select an input type');
+      return;
+    }
+    
+    // Validate volume entry
+    if (!inputVolume || inputVolume === 0) {
+      setAlertMessage('Please enter a volume');
+      return;
+    }
+    
+    // Clear any previous alert
+    setAlertMessage('');
+    
     const inputObject = getInputObject();
     try {
       const response = await dispatchFluidData('input', inputObject);
@@ -35,6 +51,11 @@ function FluidInput({ hospitalNumber }) {
     <Paper sx={{ height: '100%', m: { xs: 1, md: 2 } }}>
       <Box sx={{ p: { xs: 1, md: 2 } }}>
         <Typography variant="h6" gutterBottom>Fluid Input</Typography>
+        {alertMessage && (
+          <Alert severity="warning" onClose={() => setAlertMessage('')} sx={{ mb: 2 }}>
+            {alertMessage}
+          </Alert>
+        )}
         <Grid container spacing={{ xs: 1, md: 2 }}>
           <Grid item xs={12} sm={6} md={4}>
             <InputSource setInputType={setInputType} />

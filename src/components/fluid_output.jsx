@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Box, Paper, Typography, Grid } from '@mui/material';
+import { Box, Paper, Typography, Grid, Alert } from '@mui/material';
 import OutputSource from './output_source';
 import OutputPresets from './output_presets';
 import OutputVolume from './output_volume';
@@ -9,6 +9,7 @@ function FluidOutput({ hospitalNumber }) {
   const [state, setState] = useState({});
   const [outputType, setOutputType] = useState('');
   const [outputVolume, setOutputVolume] = useState(0);
+  const [alertMessage, setAlertMessage] = useState('');
 
   const getOutputObject = () => {
     const outputObject = {
@@ -20,6 +21,21 @@ function FluidOutput({ hospitalNumber }) {
   };
 
   const submitOutputData = async () => {
+    // Validate source selection
+    if (!outputType || outputType === '') {
+      setAlertMessage('Please select an output type');
+      return;
+    }
+    
+    // Validate volume entry
+    if (!outputVolume || outputVolume === 0) {
+      setAlertMessage('Please enter a volume');
+      return;
+    }
+    
+    // Clear any previous alert
+    setAlertMessage('');
+    
     const outputObject = getOutputObject();
     try {
       const response = await dispatchFluidData('output', outputObject);
@@ -34,6 +50,11 @@ function FluidOutput({ hospitalNumber }) {
     <Paper sx={{ height: '100%', m: { xs: 1, md: 2 } }}>
       <Box sx={{ p: { xs: 1, md: 2 } }}>
         <Typography variant="h6" gutterBottom>Fluid Output</Typography>
+        {alertMessage && (
+          <Alert severity="warning" onClose={() => setAlertMessage('')} sx={{ mb: 2 }}>
+            {alertMessage}
+          </Alert>
+        )}
         <Grid container spacing={{ xs: 1, md: 2 }}>
           <Grid item xs={12} sm={6} md={4}>
             <OutputSource setOutputType={setOutputType} />
